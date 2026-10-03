@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>kebeb100klikniec</title>
+<style>
+  :root {
+    --bg1: #ffb347;
+    --bg2: #ff7e29;
+    --card-bg: rgba(255,255,255,0.95);
+    --text: #3a1f00;
+    --accent: #d84315;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --card-bg: rgba(30,20,10,0.92);
+      --text: #ffe0b2;
+    }
+  }
+  :root[data-theme="dark"] {
+    --card-bg: rgba(30,20,10,0.92);
+    --text: #ffe0b2;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+    background: linear-gradient(160deg, var(--bg1), var(--bg2));
+    color: var(--text);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  #wrap {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+  }
+  .emoji {
+    font-size: clamp(4rem, 20vw, 7rem);
+    filter: drop-shadow(0 8px 14px rgba(0,0,0,0.25));
+    margin-bottom: 10px;
+  }
+  h1 {
+    margin: 0 0 6px 0;
+    font-size: clamp(1.6rem, 6vw, 2.6rem);
+    text-shadow: 2px 2px 0 rgba(0,0,0,0.12);
+  }
+  p.sub {
+    margin: 0 0 28px 0;
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
+    opacity: 0.85;
+    max-width: 420px;
+  }
+  .card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: min(360px, 90vw);
+  }
+  a.btn, button.btn {
+    display: block;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.08s ease-out;
+  }
+  a.btn:active, button.btn:active { transform: scale(0.97); }
+  .btn-primary {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 6px 14px rgba(216,67,21,0.4);
+  }
+  .btn-secondary {
+    background: #fff3e0;
+    color: var(--accent);
+    border: 2px solid var(--accent);
+  }
+  .hint {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="emoji">🥙</div>
+  <h1>kebeb100klikniec</h1>
+  <p class="sub">Klikaj kebaba, zbierz 100 kliknięć i odblokuj bonusową minigrę — łap pojawiające się i znikające kebaby na czas!</p>
+
+  <div class="card">
+    <a class="btn btn-primary" href="game.html">▶️ Zagraj online</a>
+    <button class="btn btn-secondary" id="downloadBtn">⬇️ Pobierz grę (plik HTML)</button>
+    <div class="hint">Pobrany plik możesz otworzyć w dowolnej przeglądarce, bez internetu.</div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('downloadBtn').addEventListener('click', async () => {
+    try {
+      const res = await fetch('game.html');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'kebeb100klikniec.html';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      window.location.href = 'game.html';
+    }
+  });
+</script>
+</body>
+</html>
